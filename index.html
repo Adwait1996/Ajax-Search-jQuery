@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jQuery Ajax</title>
+		<link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.min.css">
+	</head>
+	<body class="bg-danger">
+		<div class="container bg-success">
+			<h1>jQuery Ajax</h1>
+			<cite>With Bootstrap</cite><br>
+			<small>Fetching data dynamically from the server.</small>
+			<hr>
+			<input type="text" id="search_feed" class="form-control"></body>
+			<div class="h5"><p id="output" class="text-info">Type your Query...</p></div>
+		</div>
+		<!--Scripts-->
+		<script src="jquery-3.2.1.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			$("#search_feed").keyup(function(){
+				var input =$(this).val().toLowerCase().trim();
+				$.ajax({
+					url: 'server.php',
+					dataType: 'JSON',
+					success: function(data){
+
+						if(jQuery.inArray(input, data) !== -1)
+						{
+							$("#output").removeClass();
+							$("#output").addClass('text-success');
+							$("#output").html(input +'   Found.!!!');
+
+						}
+						else if(input =="")
+						{
+							$("#output").removeClass();
+							$("#output").addClass('text-info');
+							$("#output").html('Type your Query...');
+						}
+						else
+						{
+							$("#output").removeClass();
+							$("#output").addClass('text-danger');
+							$("#output").html(input +'  Not Found..!!');
+						}
+					}
+				});
+			});
+
+		</script>
+	</body>
+</html>
